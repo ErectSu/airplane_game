@@ -2,9 +2,37 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>AirplaneGame</title>
 </head>
+<script src="js/util.js"></script>
+<script src="js/spirit.js"></script>
+<script src="js/main.js"></script>
+<script>
+    window.onload=function(){
+        Main.init();
+        Util.g("startBtn").onclick=function(){
+            Main.start();
+            this.style.display="none";
+        }
+    }
+</script>
 <body>
+<div id="parent" style="
+        margin: 0 auto;
+        width:1240px; height:720px;
+        background-color:#eee;
+        position: relative;
+        overflow:hidden;">
+    <button
+            style="
+            position:absolute;
+            left:620px;
+            top:360px;
+            display:block;"
+            id="startBtn">
+        点击开始
+    </button>
 
+</div>
 </body>
 </html>
