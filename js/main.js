@@ -2,7 +2,7 @@ var Main = {
     init:function () {
         Util.init()
     },
-    _totalEnemies:5,
+    _totalEnemies:8,
     start:function () {
         enemyFactory.creatNormalEnemy(this._totalEnemies);
         selfPlane.init();
@@ -18,6 +18,10 @@ var Main = {
             for(var i in enemys){
                 var enemy=enemys[i];
                 enemy.move(-enemy.speed,0);
+
+                if(enemy.x<-Util.normalEnemyElement.width||enemy.isDied){
+                    enemy.restore();
+                }
             }
 
             if (selfPlane.left){

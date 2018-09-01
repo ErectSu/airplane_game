@@ -55,14 +55,23 @@ normalEnemy.prototype.move=function(moveX,moveY){
     this.e.style.top=this.y+"px";
 }
 
+normalEnemy.prototype.restore=function(){
+    this.x=Util.windowWidth;
+    this.y=Math.random()*(Util.windowHeight-Util.normalEnemyElement.height);
+    var speed=6+Math.random()*9;
+    this.e.style.left=this.x+"px";
+    this.e.style.top=this.y+"px";
+    this.isDied=false;
+}
+
 var enemyFactory={
     enemys:[],
     creatNormalEnemy:function(n){
         for(var i=0;i<n;i++){
             //0~1 乘以窗口宽度，得到的就是从0~窗口宽度的一个随机x值
-            var x= Util.windowWidth-Util.normalEnemyElement.width;
+            var x= Util.windowWidth;
             var y=Math.random()*(Util.windowHeight-Util.normalEnemyElement.height);
-            var speed=3+Math.random()*3;
+            var speed=6+Math.random()*9;
             var ep=new normalEnemy(x,y,speed);
             this.enemys.push(ep);
         }
