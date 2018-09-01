@@ -2,7 +2,9 @@ var Main = {
     init:function () {
         Util.init()
     },
+    _totalEnemies:5,
     start:function () {
+        enemyFactory.creatNormalEnemy(this._totalEnemies);
         selfPlane.init();
         this._initEvent();
         this._render();
@@ -11,6 +13,13 @@ var Main = {
     _render_t:null,
     _render:function(){
         this._render_t=setInterval(function(){
+
+            var enemys=enemyFactory.enemys;
+            for(var i in enemys){
+                var enemy=enemys[i];
+                enemy.move(-enemy.speed,0);
+            }
+
             if (selfPlane.left){
                 selfPlane.move(-Main.keyMove,0)
             }
