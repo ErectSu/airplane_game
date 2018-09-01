@@ -35,3 +35,15 @@ var selfPlane = {
     left:false,
     right:false,
 }
+var normalEnemy = function(x,y,speed){
+    this.x=x;
+    this.y=y;
+    this.e=Util.enemyPlaneElement.cloneNode(true);
+    this.e.style.left=x;
+    this.e.style.top=y;
+    this.e.style.display="none";
+    Util.parentElement.appendChild(this.e);
+    this.e.style.display="block";
+    this.speed=speed;
+    this.isDied=false;
+}

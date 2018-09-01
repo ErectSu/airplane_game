@@ -2,6 +2,7 @@ var Util = {
     windowWidth: 1240,
     windowHeight: 720,
     parentElement:null,
+    enemyPlaneElement:null,
     g:function(id){
         return document.getElementById(id);
     },
@@ -9,6 +10,7 @@ var Util = {
     init: function () {
         this.parentElement=this.g("parent");
         this.selfPlaneElement=this._loadImg("images/self.png");
+        this.enemyPlaneElement=this._loadImg("images/boss.gif");
     },
 
     _loadImg:function(src){
