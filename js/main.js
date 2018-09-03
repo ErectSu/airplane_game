@@ -6,6 +6,7 @@ var Main = {
     start:function () {
         enemyFactory.creatNormalEnemy(this._totalEnemies);
         selfPlane.init();
+        bulletFactory.creatSelfBulletElement(100);
         this._initEvent();
         this._render();
     },
@@ -36,6 +37,32 @@ var Main = {
             if (selfPlane.down){
                 selfPlane.move(0,Main.keyMove)
             }
+            if(selfPlane.shoot){
+                selfPlane._shoot()
+            }
+
+
+            var bullets=bulletFactory.bullets;
+            for(var i in bullets){
+                var bullet=bullets[i];
+                if (bullet.isUsed == true){
+                    bullet.move(bullet.speed,0);
+
+                    for(var i in enemys){
+                        var enemy=enemys[i];
+                        if(bullet.y>10
+                            &&bullet.x>enemy.x
+                            &&bullet.y>enemy.y
+                            &&bullet.y<enemy.y+enemy.e.width
+                            &&bullet.x<enemy.x+enemy.e.height){
+                            enemy.isDied=true;
+                            bullet.isUsed =false;
+                            bullet.moveTo(-10,-10)
+                        }
+                    }
+                }
+            }
+
         },1000/15)
     },
 
@@ -43,7 +70,7 @@ var Main = {
     _initEvent:function () {
         window.onkeydown = function (e) {
             var keynum;
-            var left = 37, up = 38, right = 39, down = 40;
+            var left = 37, up = 38, right = 39, down = 40, shoot = 65;
 
             if (window.event) {// IE
                 keynum = e.keyCode
@@ -65,14 +92,19 @@ var Main = {
                 case down:
                     selfPlane.down = true;
                     break;
+                case shoot:
+                    selfPlane.shoot = true;
+                    break;
                 default:
                     break;
             }
         }
 
+
+
         window.onkeyup = function (e) {
             var keynum;
-            var left = 37, up = 38, right = 39, down = 40;
+            var left = 37, up = 38, right = 39, down = 40, shoot = 65;
 
             if (window.event) {// IE
                 keynum = e.keyCode
@@ -93,6 +125,9 @@ var Main = {
                     break;
                 case down:
                     selfPlane.down = false;
+                    break;
+                case shoot:
+                    selfPlane.shoot = false;
                     break;
                 default:
                     break;

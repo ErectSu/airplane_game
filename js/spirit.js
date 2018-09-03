@@ -30,10 +30,23 @@ var selfPlane = {
         this.e.style.left=this.x+"px";
         this.e.style.top=this.y+"px";
     },
+    _shoot:function () {
+        var bullets=bulletFactory.bullets;
+        for(var i in bullets){
+            var bullet=bullets[i];
+            if (bullet.isUsed == false){
+                bullet.moveTo(selfPlane.x+Util.selfPlaneElement.width,selfPlane.y+Util.selfPlaneElement.width/2);
+                bullet.isUsed = true;
+                break
+            }
+
+        }
+    },
     up:false,
     down:false,
     left:false,
     right:false,
+    shoot:false,
 }
 var normalEnemy = function(x,y,speed){
     this.x=x;
@@ -74,6 +87,41 @@ var enemyFactory={
             var speed=6+Math.random()*9;
             var ep=new normalEnemy(x,y,speed);
             this.enemys.push(ep);
+        }
+    }
+}
+
+var selfBullet=function(x,y,speed){
+    this.x=x;
+    this.y=y;
+    this.speed=speed;
+    this.e=Util.selfBulletElement.cloneNode(true);
+    this.e.style.left=this.x+"px";
+    this.e.style.top=this.y+"px";
+    Util.parentElement.appendChild(this.e);
+    this.isUsed=false;
+}
+
+selfBullet.prototype.move=function(moveX,moveY){
+    this.x+=moveX;
+    this.y+=moveY;
+    this.e.style.left=this.x+"px";
+    this.e.style.top=this.y+"px";
+}
+
+selfBullet.prototype.moveTo=function(X,Y){
+    this.x=X;
+    this.y=Y;
+    this.e.style.left=this.x+"px";
+    this.e.style.top=this.y+"px";
+}
+
+var bulletFactory={
+    bullets:[],
+    creatSelfBulletElement:function(n){
+        for(var i=0;i<n;i++){
+            var b=new selfBullet(0,-Util.selfBulletElement.height,25);
+            this.bullets.push(b);
         }
     }
 }
