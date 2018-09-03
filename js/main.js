@@ -128,6 +128,7 @@ var Main = {
                     break;
                 case shoot:
                     selfPlane.shoot = false;
+                    selfPlane.shoot_count = 0;
                     break;
                 default:
                     break;

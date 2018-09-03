@@ -6,8 +6,8 @@ var selfPlane = {
     blood:100,
     init:function () {
         this.x = 10;
-        Util.selfPlaneElement.setAttribute('width',Util.selfPlaneElement.width/4);
-        Util.selfPlaneElement.setAttribute('height',Util.selfPlaneElement.height/4);
+        Util.selfPlaneElement.setAttribute('width',Util.selfPlaneElement.width/3.2);
+        Util.selfPlaneElement.setAttribute('height',Util.selfPlaneElement.height/3.2);
         this.y = (Util.windowHeight - Util.selfPlaneElement.height)/2;
         this.e = Util.selfPlaneElement;
         Util.selfPlaneElement.style.left = this.x + "px";
@@ -30,17 +30,24 @@ var selfPlane = {
         this.e.style.left=this.x+"px";
         this.e.style.top=this.y+"px";
     },
+    shoot_count:0,
     _shoot:function () {
+        if(this.shoot_count == 100){
+            this.shoot_count = 0;
+        }
+        if (this.shoot_count%5 == 0){
         var bullets=bulletFactory.bullets;
         for(var i in bullets){
             var bullet=bullets[i];
             if (bullet.isUsed == false){
-                bullet.moveTo(selfPlane.x+Util.selfPlaneElement.width,selfPlane.y+Util.selfPlaneElement.width/2);
+                bullet.moveTo(selfPlane.x+19,selfPlane.y+Util.selfPlaneElement.width/2+9);
                 bullet.isUsed = true;
                 break
             }
 
         }
+        }
+        this.shoot_count += 1;
     },
     up:false,
     down:false,
@@ -71,7 +78,7 @@ normalEnemy.prototype.move=function(moveX,moveY){
 normalEnemy.prototype.restore=function(){
     this.x=Util.windowWidth;
     this.y=Math.random()*(Util.windowHeight-Util.normalEnemyElement.height);
-    var speed=6+Math.random()*9;
+    var speed=17+Math.random()*42;
     this.e.style.left=this.x+"px";
     this.e.style.top=this.y+"px";
     this.isDied=false;
@@ -84,7 +91,7 @@ var enemyFactory={
             //0~1 乘以窗口宽度，得到的就是从0~窗口宽度的一个随机x值
             var x= Util.windowWidth;
             var y=Math.random()*(Util.windowHeight-Util.normalEnemyElement.height);
-            var speed=6+Math.random()*9;
+            var speed=17+Math.random()*21;
             var ep=new normalEnemy(x,y,speed);
             this.enemys.push(ep);
         }
@@ -120,7 +127,7 @@ var bulletFactory={
     bullets:[],
     creatSelfBulletElement:function(n){
         for(var i=0;i<n;i++){
-            var b=new selfBullet(0,-Util.selfBulletElement.height,25);
+            var b=new selfBullet(0,-Util.selfBulletElement.height,80);
             this.bullets.push(b);
         }
     }
